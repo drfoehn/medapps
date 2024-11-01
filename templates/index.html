@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Janne's Apps{% endblock %}
+
+{% block content %}
+<h1>Assorted Lab Apps</h1>
+<div>&copy; Janne Cadamuro</div>
+<p></p>
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-12 mb-2"> <!-- col-3 for large, col-6 for medium, col-12 for small -->
+        <div class="card d-flex justify-content-center align-items-center" style="width: 18rem;">
+
+            <img src="{{ url_for('static', filename='img/sample_volume_calculator.webp') }}" class="card-img-top" alt="sample volume calculator">
+            <div class="card-body">
+              <h5 class="card-title">Sample Volume Calculator</h5>
+              <p class="card-text">An lab ordering cards inspired calculator that lets you select lab tests and get the needed blood as result.</p>
+              <a href="{{ url_for('sample_volume_calculator') }}" class="btn btn-primary">Go</a>
+            </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-12 mb-2"> <!-- col-3 for large, col-6 for medium, col-12 for small -->
+        <div class="card d-flex justify-content-center align-items-center" style="width: 18rem;">
+
+            <img src="{{ url_for('static', filename='img/xls2json.webp') }}" class="card-img-top" alt="Excel to JSON converter">
+            <div class="card-body">
+              <h5 class="card-title">Excel to JSON Converter</h5>
+              <p class="card-text">A tool to convert your LabTest-Excel data into JSON format for usage in the Sample Volume Calculator.</p>
+              <a href="{{ url_for('excel_to_json_converter') }}" class="btn btn-primary">Go</a>
+            </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-12 mb-2"> <!-- col-3 for large, col-6 for medium, col-12 for small -->
+        <div class="card d-flex justify-content-center align-items-center" style="width: 18rem;">
+
+            <img src="{{ url_for('static', filename='img/bilirubin_neo.webp') }}" class="card-img-top" alt="sample volume calculator">
+            <div class="card-body">
+              <h5 class="card-title">Bilirubin Calculator</h5>
+              <p class="card-text">An inoficcial possibility to factorize indirect (unconjugated) Bilirubin in hemolytic samples.</p>
+              <a href="{{ url_for('bilirubin_calculator') }}" class="btn btn-primary">Go</a>
+            </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-12 mb-2"> <!-- col-3 for large, col-6 for medium, col-12 for small -->
+        <div class="card d-flex justify-content-center align-items-center" style="width: 18rem;">
+
+            <img src="{{ url_for('static', filename='img/mass.webp') }}" class="card-img-top" alt="sample volume calculator">
+            <div class="card-body">
+              <h5 class="card-title">Mass Extractor</h5>
+              <p class="card-text">A Python Script that extracts certain data from PDFs generated from Mass Spectometer XXXX</p>
+              <a href="{{ url_for('mass_extracter') }}" class="btn btn-primary">Go</a>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

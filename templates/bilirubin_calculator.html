@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Bilirubin Calculator{% endblock %}
+
+{% block content %}
+<h2>Berechnung direktes Bilirubin</h2>
+<div class="input_div">
+  <div class="input-group mb-3" id="bili-input">
+    <span class="input-group-text">Direktes (konjugiertes) Bilirubin - Gemessener Wert</span>
+    <input type="number" id="bili" class="form-control" name="Bili" min="0" max="100" aria-label="Bili_gemessen">
+    <span class="input-group-text">mg/dL</span>
+  </div>
+  <div class="input-group mb-3" id="haem-input">
+    <span class="input-group-text">Hämolyse-Index</span>
+    <input type="number" id="haem" class="form-control" name="haem" min="0" max="100" aria-label="Hämolyse">
+    <span class="input-group-text">(=freies Hämoglobin in mg/dL)</span>
+  </div>
+  <br>
+  <button type="button" class="btn btn-primary" onclick="calculateCorrBilirubin()">Korrigiertes direktes Bilirubin berechnen</button>
+  
+  <div id="Bili_Result" style="color: red; padding-top: 1em; font-weight: bold;"></div>
+  <hr>
+  <div>
+    <h4>Ergebnisse des Hämolyse-Experiments</h4>
+    <img src="{{ url_for('static', filename='img/regression_bili.JPG') }}" alt="Regression Bilirubin">
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/bilicalculator.js') }}"></script>
+{% endblock %}

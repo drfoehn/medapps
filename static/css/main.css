@@ -1,0 +1,168 @@
+/* Style the tab */
+
+body{
+    padding: 2em;
+    font-family:"Calibri", sans-serif;
+}
+
+h1{
+    font-family:"Calibri", sans-serif;
+}
+
+h3{
+    margin-top: 2em;
+}
+.tab {
+    overflow: hidden;
+}
+
+.card{
+    margin-bottom: 2em;
+}
+
+.navbar-brand{
+	font-size: 2em;
+	padding-right: 4em;
+}
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: #8ECAE6;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    border-top-left-radius: 10px;  /* Runde obere linke Ecke */
+    border-top-right-radius: 10px; /* Runde obere rechte Ecke */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #219EBC;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    color: white;
+    background-color: #023047;
+        border-bottom: 3px solid #023047;
+
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+
+#selectedAnalytesTable{
+
+}
+
+
+#roehrchenContainer{
+        padding: 2em
+}
+
+.input_div{
+    padding: 2em
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tabcontent label{
+    padding-left: 1em;
+}
+.roehrchenContainer div.h3{
+    margin-top: 1em;
+}
+.not-calculable {
+    background-color: #f89292;
+}
+
+#roehrchenContainer>div>select{
+
+}
+
+#roehrchenContainer>div {
+  /*min-width: 350px;*/
+  position: relative;
+}
+
+#calculationResult{
+    padding: 2em;
+    border: 2px #219EBC;
+    border-radius: 5px;
+    background-color: #eeeded;
+
+}
+
+
+.xls2json {
+  
+}
+.container {
+    margin-top: 50px;
+}
+h1 {
+    margin-bottom: 30px;
+}
+.how-to {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/*#roehrchenContainer>div>select {*/
+/*  appearance: none;*/
+/*  !*  safari  *!*/
+/*  -webkit-appearance: none;*/
+/*  !*  other styles for aesthetics *!*/
+/*  !*width: 20%;*!*/
+/*  font-size: 1.15rem;*/
+/*  padding: 0.675em 6em 0.675em 1em;*/
+/*  background-color: #fff;*/
+/*  border: 1px solid #caced1;*/
+/*  border-radius: 0.25rem;*/
+/*  color: #000;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*#roehrchenContainer>div::before,*/
+/*#roehrchenContainer>div::after {*/
+/*  --size: 0.3rem;*/
+/*  content: "";*/
+/*  position: absolute;*/
+/*  right: 1rem;*/
+/*  pointer-events: none;*/
+/*}*/
+
+/*#roehrchenContainer>div::before {*/
+/*  border-left: var(--size) solid transparent;*/
+/*  border-right: var(--size) solid transparent;*/
+/*  border-bottom: var(--size) solid black;*/
+/*  top: 40%;*/
+/*}*/
+
+/*#roehrchenContainer>div::after {*/
+/*  border-left: var(--size) solid transparent;*/
+/*  border-right: var(--size) solid transparent;*/
+/*  border-top: var(--size) solid black;*/
+/*  top: 55%;*/
+/*}*/

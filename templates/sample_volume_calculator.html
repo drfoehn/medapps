@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Sample Volume Calculator{% endblock %}
+
+{% block content %}
+<h2>Berechnung Probenmenge</h2>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Labortest Auswahl</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" id="searchInput" placeholder="Analyt suchen" aria-label="Search">
+        <button type="button" onclick="searchAnalytes()" class="btn btn-outline-success" type="submit">Suchen</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="tab">
+    <!-- Tabs werden hier generiert -->
+</div>
+
+<div id="tabContent">
+    <!-- Inhalt der Tabs wird hier generiert -->
+</div>
+
+<table class="table" id="selectedAnalytesTable">
+    <thead>
+        <tr>
+            <th scope="col">Untersuchung</th>
+            <th scope="col">Wohin</th>
+            <th scope="col">Schein</th>
+            <th scope="col">Röhrchen</th>
+            <th scope="col">Bemerkungen</th>
+            <th scope="col">Mindest-<br>probenmenge</th>
+            <th scope="col">Benötigtes<br>Totvolumen</th>
+            <th scope="col">Gruppe</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Ausgewählte Analysen werden hier angezeigt -->
+    </tbody>
+</table>
+
+<h3>Benötigtes Probenmaterial für ZL LKH</h3>
+<div id="roehrchenContainer">
+    <!-- Dynamisch generierte Auswahl und Ergebnisse der Röhrchentypen werden hier eingefügt -->
+</div>
+<div class="input_div" style="width: 500px;">
+  <div class="input-group mb-3" id="hkt-input">
+    <span class="input-group-text">Hämatokrit:</span>
+      <input type="number" id="hct" class="form-control" name="hct" min="0" max="100" aria-label="Hämatokrit">
+      <span class="input-group-text">%</span>
+  </div>
+<br>
+<button type="button" class="btn btn-primary" onclick="calculateSampleVolume()">Probenmenge berechnen</button>
+</div>
+<div id="calculationResult">
+    <!-- Ergebnisse für jeden Röhrchentyp werden hier angezeigt -->
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/samplecalculator.js') }}"></script>
+{% endblock %}
