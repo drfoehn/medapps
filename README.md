@@ -71,9 +71,6 @@ This project is licensed under the GNU General Public License v2.0. See the [LIC
 ## Contributing
 Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
 
-## Contact
-For any inquiries or feedback, please contact [your_email@example.com].
-
 ---
 
 Thank you for using MedApps! I hope these applications assist you in your laboratory tasks.

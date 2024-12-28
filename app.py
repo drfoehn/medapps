@@ -69,6 +69,7 @@ def internal_error(error):
 @app.route('/excel_to_json_converter')
 def excel_to_json_converter():
     return render_template('excel_to_json_converter.html')
+@app.route('/download_template')
 
 @app.route('/download_template', methods=['GET'])
 def download_template():
@@ -81,11 +82,9 @@ def download_template():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
-        app.logger.error('No file part in the request.')
         return jsonify({'error': 'No file part'}), 400
     file = request.files['file']
     if file.filename == '':
-        app.logger.error('No selected file.')
         return jsonify({'error': 'No selected file'}), 400
     
     # Check if the file is an allowed type
@@ -94,17 +93,14 @@ def upload_file():
         filename = secure_filename(file.filename)
         unique_filename = f"{secrets.token_hex(8)}_{filename}"
         file_path = os.path.join(XLS2JSON_UPLOAD_FOLDER, unique_filename)
-        app.logger.info(f'Saving file to {file_path}')
         file.save(file_path)
         
-        try:
-            # Convert Excel to JSON
-            df = pd.read_excel(file_path)
-            json_data = df.to_json(orient='records')
-            json_object = json.loads(json_data)  # Convert string to Python object
-        except Exception as e:
-            app.logger.error(f'Error converting Excel to JSON: {e}')
-            return jsonify({'error': 'Error processing the file'}), 500
+        # Convert Excel to JSON
+        df = pd.read_excel(file_path)
+        json_data = df.to_json(orient='records')
+        
+        # Load the JSON data into a Python object
+        json_object = json.loads(json_data)  # Convert string to Python object
         
         # Remove the uploaded file after processing
         os.remove(file_path)
@@ -132,11 +128,11 @@ def upload_file():
                 <h1>JSON Output</h1>
                 <button onclick="copyToClipboard()">Copy JSON to Clipboard</button>
                 <pre id="jsonOutput">{{ json_data }}</pre>
+                
             </body>
             </html>
         ''', json_data=json.dumps(json_object, indent=4))  # Pass the JSON data to the template
     else:
-        app.logger.error('Invalid file format.')
         return jsonify({'error': 'Invalid file format'}), 400
 
 if __name__ == '__main__':

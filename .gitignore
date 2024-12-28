@@ -1,45 +1,20 @@
-# Python bytecode
+# Virtual Environment
+env/
+venv/
+ENV/
+
+# Python
 __pycache__/
 *.py[cod]
-
-# Virtual environment
-venv/
-env/
-.venv/
-.env/
-
-# Logs
-logs/
-*.log
-
-# Flask instance folder
-instance/
-
-# Configuration files
-*.cfg
-*.ini
-*.env
-config.py
-
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints
-
-# Pytest cache
-.cache/
-.pytest_cache/
-
-# Coverage reports
-htmlcov/
-.coverage
-.coverage.*
-
-# Distribution / packaging
+*$py.class
+*.so
 .Python
 build/
 develop-eggs/
 dist/
 downloads/
 eggs/
+.eggs/
 lib/
 lib64/
 parts/
@@ -50,16 +25,45 @@ wheels/
 .installed.cfg
 *.egg
 
-# IDEs and editors
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
+# Configuration files
+config/
+config.py
+*.ini
+.env
 
-# OS generated files
+# Archive files
+archive/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
 .DS_Store
-Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite3
+
+# Compiled files
+*.pyc
+
+# Local development
+instance/
+.webassets-cache
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+coverage.xml
+*.cover
+
 
 archive/
-mass_extract_archive/
-mass_extract_uploads/
