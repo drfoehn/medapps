@@ -130,8 +130,8 @@ const KdigoMatrix = {
     }
 }
 
-// Haupt-App-Konfiguration
-const appConfig = {
+// App-Konfiguration
+const app = Vue.createApp({
     components: {
         'gfr-scale': GfrScale,
         'kdigo-matrix': KdigoMatrix
@@ -524,13 +524,17 @@ const appConfig = {
             
             const gfr = (k * height) / kreaMgdl
             return Math.round(gfr * 10) / 10
+        },
+
+        roundGFR(value) {
+            if (!value) return '0.0';
+            return (Math.round(value * 10) / 10).toFixed(1);
         }
     }
-}
+})
 
-// App initialisieren wenn DOM geladen ist
+// App mounten wenn DOM geladen ist
 document.addEventListener('DOMContentLoaded', () => {
-    const app = Vue.createApp(appConfig)
     app.mount('#app')
     document.getElementById('loading').style.display = 'none'
 }) 

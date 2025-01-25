@@ -1,31 +1,30 @@
-
 {% extends "base.html" %}
 
-{% block title %}Janne's Apps{% endblock %}
+{% block title %}Nephro Calculator{% endblock %}
 
 {% block extra_css %}
-<style>
-    .app-loading {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background-color: #f8f9fa;
-    }
+    <!-- Kritisches CSS inline -->
+    <style>
+        .app-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        
+        [v-cloak] {
+            display: none;
+        }
+    </style>
     
-    [v-cloak] {
-        display: none;
-    }
-</style>
+    <!-- CSS früh laden -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="{{ url_for('static', filename='css/main.css') }}" as="style">
+    
+    {% endblock %}
 
-<!-- CSS früh laden -->
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-
-
-{% endblock %}
-
-{% block content %}
+    {% block content %}
 
     <!-- Loading State -->
     <div id="loading" class="app-loading">
@@ -229,12 +228,13 @@
                                     </gfr-scale>
                                     <div class="alert" 
                                          :class="'alert-' + getAlertClass(results.kdigo.gfrCategory.color)">
-                                        <div>Normalisierte GFR: {{ results.gfr.schwartz }} ml/min/1.73m²</div>
+                                        <div>Normalisierte GFR: <span v-text="results.gfr.schwartz"></span> ml/min/1.73m²</div>
                                         <div v-if="results.gfr.schwartzAbsolute">
-                                            Absolute GFR: {{ Math.round(results.gfr.schwartzAbsolute * 10) / 10 }} ml/min
+                                            Absolute GFR: <span v-text="roundGFR(results.gfr.schwartzAbsolute)"></span> ml/min
                                         </div>
                                         <div class="mt-2">
-                                            {{ results.kdigo.gfrCategory.stage }} - {{ results.kdigo.gfrCategory.description }}
+                                            <span v-text="results.kdigo.gfrCategory.stage"></span> - 
+                                            <span v-text="results.kdigo.gfrCategory.description"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -247,46 +247,49 @@
                                     </gfr-scale>
                                     <div class="alert" 
                                          :class="'alert-' + getAlertClass(results.kdigo.gfrCategory.color)">
-                                        <div>Normalisierte GFR: {{ results.gfr.ckdEpi }} ml/min/1.73m²</div>
+                                        <div>Normalisierte GFR: <span v-text="results.gfr.ckdEpi"></span> ml/min/1.73m²</div>
                                         <div v-if="results.gfr.ckdEpiAbsolute">
-                                            Absolute GFR: {{ Math.round(results.gfr.ckdEpiAbsolute * 10) / 10 }} ml/min
+                                            Absolute GFR: <span v-text="roundGFR(results.gfr.ckdEpiAbsolute)"></span> ml/min
                                         </div>
                                         <div class="mt-2">
-                                            {{ results.kdigo.gfrCategory.stage }} - {{ results.kdigo.gfrCategory.description }}
+                                            <span v-text="results.kdigo.gfrCategory.stage"></span> - 
+                                            <span v-text="results.kdigo.gfrCategory.description"></span>
                                         </div>
                                     </div>
                                 </div>
 
+                                <!-- Cystatin C basierte GFR -->
                                 <div v-if="results.gfr.cysC" class="mb-4">
                                     <h4 class="h6">Cystatin C basierte GFR</h4>
                                     <gfr-scale :value="results.gfr.cysC" 
                                               :category="getGfrCategory(results.gfr.cysC)">
                                     </gfr-scale>
                                     <div class="alert alert-info">
-                                        <div>Normalisierte GFR: {{ results.gfr.cysC }} ml/min/1.73m²</div>
+                                        <div>Normalisierte GFR: <span v-text="results.gfr.cysC"></span> ml/min/1.73m²</div>
                                         <div v-if="results.gfr.cysCAbsolute">
-                                            Absolute GFR: {{ Math.round(results.gfr.cysCAbsolute * 10) / 10 }} ml/min
+                                            Absolute GFR: <span v-text="roundGFR(results.gfr.cysCAbsolute)"></span> ml/min
                                         </div>
                                         <div class="mt-2">
-                                            {{ getGfrCategory(results.gfr.cysC).stage }} - 
-                                            {{ getGfrCategory(results.gfr.cysC).description }}
+                                            <span v-text="getGfrCategory(results.gfr.cysC).stage"></span> - 
+                                            <span v-text="getGfrCategory(results.gfr.cysC).description"></span>
                                         </div>
                                     </div>
                                 </div>
 
+                                <!-- Kombinierte GFR -->
                                 <div v-if="results.gfr.combined" class="mb-4">
                                     <h4 class="h6">Kombinierte GFR (Kreatinin + Cystatin C)</h4>
                                     <gfr-scale :value="results.gfr.combined" 
                                               :category="getGfrCategory(results.gfr.combined)">
                                     </gfr-scale>
                                     <div class="alert alert-info">
-                                        <div>Normalisierte GFR: {{ results.gfr.combined }} ml/min/1.73m²</div>
+                                        <div>Normalisierte GFR: <span v-text="results.gfr.combined"></span> ml/min/1.73m²</div>
                                         <div v-if="results.gfr.combinedAbsolute">
-                                            Absolute GFR: {{ Math.round(results.gfr.combinedAbsolute * 10) / 10 }} ml/min
+                                            Absolute GFR: <span v-text="roundGFR(results.gfr.combinedAbsolute)"></span> ml/min
                                         </div>
                                         <div class="mt-2">
-                                            {{ getGfrCategory(results.gfr.combined).stage }} - 
-                                            {{ getGfrCategory(results.gfr.combined).description }}
+                                            <span v-text="getGfrCategory(results.gfr.combined).stage"></span> - 
+                                            <span v-text="getGfrCategory(results.gfr.combined).description"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -305,9 +308,9 @@
                                     <h4 class="h6">Fraktionelle Natrium-Ausscheidung</h4>
                                     <div class="alert" 
                                          :class="getFeNaAlertClass(results.excretion.feNa)">
-                                        {{ results.excretion.feNa }}%
-                                        <div class="small">
-                                            {{ getFeNaInterpretation(results.excretion.feNa) }}
+                                        <span v-text="results.excretion.feNa"></span>%
+                                        <div class="small" v-if="results.excretion.feNa">
+                                            <span v-text="getFeNaInterpretation(results.excretion.feNa)"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -316,9 +319,9 @@
                                     <h4 class="h6">Fraktionelle Harnstoff-Ausscheidung</h4>
                                     <div class="alert" 
                                          :class="getFeUreaAlertClass(results.excretion.feUrea)">
-                                        {{ results.excretion.feUrea }}%
+                                        <span v-text="results.excretion.feUrea"></span>%
                                         <div class="small">
-                                            {{ getFeUreaInterpretation(results.excretion.feUrea) }}
+                                            <span v-text="getFeUreaInterpretation(results.excretion.feUrea)"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -342,7 +345,7 @@
                                     <h4 class="h6">Risikokategorie</h4>
                                     <div class="alert"
                                          :class="'alert-' + getAlertClass(results.kdigo.riskCategory.color)">
-                                        {{ getRiskCategoryText(results.kdigo.riskCategory.level) }}
+                                        <span v-text="getRiskCategoryText(results.kdigo.riskCategory.level)"></span>
                                     </div>
                                 </div>
                             </div>
@@ -353,11 +356,8 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script src="{{ url_for('static', filename='js/nephrocalculator.js') }}"></script>
-    
-    <script src="app.js"></script>
     {% endblock %}
 
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/nephro_calculator.js') }}"></script>
+{% endblock %}

@@ -3,57 +3,77 @@
 {% block title %}Janne's Apps{% endblock %}
 
 {% block content %}
-<h1>Assorted Lab Apps</h1>
-<div>&copy; Janne Cadamuro</div>
-<p></p>
-
-<div class="container">
-    <div class="row">
-      <div class="col-lg-3 col-md-6 col-12 mb-2"> <!-- col-3 for large, col-6 for medium, col-12 for small -->
-        <div class="card d-flex justify-content-center align-items-center" style="width: 18rem;">
-
-            <img src="{{ url_for('static', filename='img/sample_volume_calculator.webp') }}" class="card-img-top" alt="sample volume calculator">
-            <div class="card-body">
-              <h5 class="card-title">Sample Volume Calculator</h5>
-              <p class="card-text">An lab ordering cards inspired calculator that lets you select lab tests and get the needed blood as result.</p>
-              <a href="{{ url_for('sample_volume_calculator') }}" class="btn btn-primary">Go</a>
+<div class="container py-4">
+    <h1 class="text-center mb-4">Assorted Lab Apps</h1>
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="card h-100">
+                <img src="{{ url_for('static', filename='img/sample_volume_calculator.webp') }}" 
+                     class="card-img-top" 
+                     alt="Sample Volume Calculator Interface">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Sample Volume Calculator</h5>
+                    <p class="card-text">A lab ordering cards inspired calculator that lets you select lab tests and get the needed blood volume as result.</p>
+                    <a href="{{ url_for('sample_volume_calculator') }}" class="btn btn-primary mt-auto">Go</a>
+                </div>
             </div>
-          </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-12 mb-2"> <!-- col-3 for large, col-6 for medium, col-12 for small -->
-        <div class="card d-flex justify-content-center align-items-center" style="width: 18rem;">
+        </div>
 
-            <img src="{{ url_for('static', filename='img/xls2json.webp') }}" class="card-img-top" alt="Excel to JSON converter">
-            <div class="card-body">
-              <h5 class="card-title">Excel to JSON Converter</h5>
-              <p class="card-text">A tool to convert your LabTest-Excel data into JSON format for usage in the Sample Volume Calculator.</p>
-              <a href="{{ url_for('excel_to_json_converter') }}" class="btn btn-primary">Go</a>
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="card h-100">
+                <img src="{{ url_for('static', filename='img/xls2json.webp') }}" 
+                     class="card-img-top" 
+                     alt="Excel to JSON Converter Interface">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Excel to JSON Converter</h5>
+                    <p class="card-text">A tool to convert your LabTest-Excel data into JSON format for usage in the Sample Volume Calculator.</p>
+                    <a href="{{ url_for('excel_to_json_converter') }}" class="btn btn-primary mt-auto">Go</a>
+                </div>
             </div>
-          </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-12 mb-2"> <!-- col-3 for large, col-6 for medium, col-12 for small -->
-        <div class="card d-flex justify-content-center align-items-center" style="width: 18rem;">
+        </div>
 
-            <img src="{{ url_for('static', filename='img/bilirubin_neo.webp') }}" class="card-img-top" alt="sample volume calculator">
-            <div class="card-body">
-              <h5 class="card-title">Bilirubin Calculator</h5>
-              <p class="card-text">An inoficcial possibility to factorize indirect (unconjugated) Bilirubin in hemolytic samples.</p>
-              <a href="{{ url_for('bilirubin_calculator') }}" class="btn btn-primary">Go</a>
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="card h-100">
+                <img src="{{ url_for('static', filename='img/bilirubin_neo.webp') }}" 
+                     class="card-img-top" 
+                     alt="Bilirubin Calculator Interface">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Bilirubin Calculator</h5>
+                    <p class="card-text">An unofficial possibility to factorize indirect (unconjugated) Bilirubin in hemolytic samples.</p>
+                    <a href="{{ url_for('bilirubin_calculator') }}" class="btn btn-primary mt-auto">Go</a>
+                </div>
             </div>
-          </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-12 mb-2"> <!-- col-3 for large, col-6 for medium, col-12 for small -->
-        <div class="card d-flex justify-content-center align-items-center" style="width: 18rem;">
+        </div>
 
-            <img src="{{ url_for('static', filename='img/mass.webp') }}" class="card-img-top" alt="sample volume calculator">
-            <div class="card-body">
-              <h5 class="card-title">Mass Extractor</h5>
-              <p class="card-text">A Python Script that extracts certain data from PDFs generated from Mass Spectometer XXXX</p>
-              <a href="{{ url_for('mass_extracter') }}" class="btn btn-primary">Go</a>
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="card h-100">
+                <img src="{{ url_for('static', filename='img/mass.webp') }}" 
+                     class="card-img-top" 
+                     alt="Mass Extractor Interface">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Mass Extractor</h5>
+                    <p class="card-text">A Python Script that extracts certain data from PDFs generated from Mass Spectrometer XXXX</p>
+                    <a href="{{ url_for('mass_extracter') }}" class="btn btn-primary mt-auto">Go</a>
+                </div>
             </div>
-          </div>
-      </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="card h-100">
+                <img src="{{ url_for('static', filename='img/nephro_calculator.webp') }}" 
+                     class="card-img-top" 
+                     alt="Nephro Calculator Interface">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Nephro Calculator</h5>
+                    <p class="card-text">A tool to calculate the risk of acute and chronic kidney disease based on the KDIGO criteria.</p>
+                    <a href="{{ url_for('nephro_calculator') }}" class="btn btn-primary mt-auto">Go</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
+    <div class="text-center mt-4">
+        <small class="text-muted">&copy; Janne Cadamuro</small>
+    </div>
+</div>
 {% endblock %}
