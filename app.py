@@ -59,7 +59,7 @@ def sample_volume_calculator():
 def nephro_calculator():
     results = {
         'gfr': {
-            'schwartz': None,  # Initialize with None or appropriate default
+            'schwartz': None,
             'ckdEpi': None,
             'cysC': None,
             'combined': None,
@@ -76,7 +76,6 @@ def nephro_calculator():
             'riskCategory': None
         }
     }
-    # ... populate results with actual data as needed ...
     return render_template('nephro_calculator.html', results=results)
 
 @app.route('/mass_extracter')
@@ -93,8 +92,8 @@ def internal_error(error):
 @app.route('/excel_to_json_converter')
 def excel_to_json_converter():
     return render_template('excel_to_json_converter.html')
-@app.route('/download_template')
 
+@app.route('/download_template')
 @app.route('/download_template', methods=['GET'])
 def download_template():
     file_path = 'static/xls2json_uploads/template.xlsx'  
