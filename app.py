@@ -55,6 +55,30 @@ def bilirubin_calculator():
 def sample_volume_calculator():
     return render_template('sample_volume_calculator.html')
 
+@app.route('/nephro_calculator')
+def nephro_calculator():
+    results = {
+        'gfr': {
+            'schwartz': None,  # Initialize with None or appropriate default
+            'ckdEpi': None,
+            'cysC': None,
+            'combined': None,
+            'schwartzAbsolute': None,
+            'ckdEpiAbsolute': None,
+            'cysCAbsolute': None,
+            'combinedAbsolute': None
+        },
+        'excretion': {},
+        'acr': None,
+        'kdigo': {
+            'gfrCategory': None,
+            'albuminuriaCategory': None,
+            'riskCategory': None
+        }
+    }
+    # ... populate results with actual data as needed ...
+    return render_template('nephro_calculator.html', results=results)
+
 @app.route('/mass_extracter')
 def mass_extracter():
     # Placeholder for mass_extracter functionality
@@ -62,7 +86,7 @@ def mass_extracter():
 
 @app.errorhandler(500)
 def internal_error(error):
-    app.logger.error('Server Error: %s', (error))
+    app.logger.error('Server Error: %s', error)
     return render_template('500.html'), 500
 
 # New route for Excel to JSON Converter
@@ -134,6 +158,3 @@ def upload_file():
         ''', json_data=json.dumps(json_object, indent=4))  # Pass the JSON data to the template
     else:
         return jsonify({'error': 'Invalid file format'}), 400
-
-if __name__ == '__main__':
-    app.run(debug=False)

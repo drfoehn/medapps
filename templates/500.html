@@ -1,9 +1,31 @@
 {% extends "base.html" %}
 
-{% block title %}Janne's Apps{% endblock %}
+{% block title %}500 - Serverfehler{% endblock %}
 
 {% block content %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="text-center">
+        <div class="mb-4">
+            <img src="{{ url_for('static', filename='img/500.png') }}" 
+                 alt="500 Error" 
+                 class="img-fluid"
+                 style="max-width: 400px;">
+        </div>
+        
+        <div class="alert alert-danger d-inline-block mb-4 px-4">
+            <h2 class="h4 mb-0">Oops! Etwas ist schiefgelaufen</h2>
+        </div>
+        
+        <p class="text-muted mb-4">
+            Es tut uns leid, aber es scheint ein technisches Problem aufgetreten zu sein.
+            <br>Bitte versuchen Sie es später erneut.
+        </p>
+        
+        <a href="{{ url_for('index') }}" 
+           class="btn btn-primary btn-lg shadow-sm">
+            <i class="fas fa-home me-2"></i>Zurück zur Startseite
+        </a>
+    </div>
+</div>
 
-lulu
-
-{% endblock%}
+{% endblock %}
