@@ -2233,7 +2233,8 @@ const analytesData = [
                     <option selected>Select...</option>
                     <option value="500">500</option>
                     <option value="800">800</option>
-                    <option value="1200">1200</option>
+                    <option value="1300">1300</option>
+                    <option value="2600">2600</option>
                 </select>
                 <span class="input-group-text">μl</span>`;
             tubeContainer.appendChild(div);

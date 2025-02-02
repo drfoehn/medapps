@@ -13,6 +13,15 @@
   <body>
     {% include 'navigation.html' %}
     
+    <div class="container-fluid bg-light border-bottom">
+      <div class="container">
+        <small class="text-muted py-1 d-block">
+          <i class="bi bi-info-circle"></i> 
+          These applications are provided for educational purposes only and are not validated for clinical use. Use at your own risk.
+        </small>
+      </div>
+    </div>
+
     <div class="container mt-4">
       {% block content %}{% endblock %}
     </div>
