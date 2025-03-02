@@ -8,9 +8,11 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 from config import Config
+from feedback import feedback_bp
 
 app = Flask(__name__)
 app.config.from_object(Config)
+app.secret_key = 'your-secret-key-here'  # Wichtig für Flash-Messages und Sessions
 
 XLS2JSON_UPLOAD_FOLDER = 'static/xls2json_uploads'
 os.makedirs(XLS2JSON_UPLOAD_FOLDER, exist_ok=True)
@@ -42,6 +44,7 @@ logger.addHandler(handler)
 
 # Register the mass_extract blueprint
 app.register_blueprint(mass_extract, url_prefix='/mass_extract')
+app.register_blueprint(feedback_bp, url_prefix='/feedback')
 
 @app.route('/')
 def index():

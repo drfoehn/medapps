@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Feedback Übersicht{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4">Eingegangene Mitteilungen</h2>
+
+    {% if messages %}
+        {% for message in messages|reverse %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <small class="text-muted">{{ message.timestamp }}</small>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" style="white-space: pre-wrap;">{{ message.message }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">Keine Mitteilungen vorhanden.</div>
+    {% endif %}
+</div>
+{% endblock %} 

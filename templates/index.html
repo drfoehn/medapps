@@ -70,6 +70,19 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="card h-100">
+                <img src="{{ url_for('static', filename='img/kummerkasten.jpg') }}" 
+                     class="card-img-top" 
+                     alt="Kummerkasten Interface">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Kummerkasten</h5>
+                    <p class="card-text">Ein anonymer Feedback-Kanal für Mitarbeiter des Zentrallabors. Teile Deine Gedanken, Vorschläge oder Bedenken.</p>
+                    <a href="{{ url_for('feedback.feedback') }}" class="btn btn-primary mt-auto">Go</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="text-center mt-4">
