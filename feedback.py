@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, current_app, make_response
 from datetime import datetime
 from functools import wraps
 import os
@@ -57,18 +57,26 @@ def feedback():
 
 @feedback_bp.route('/submit', methods=['POST'])
 def submit():
-    message = request.form.get('message')
-    code = request.form.get('code')
+    message = request.form.get('message', '')
+    code = request.form.get('code', '')
     ip = request.remote_addr
     
     if not message or not code:
         flash('Bitte füllen Sie alle Felder aus.', 'error')
-        return redirect(url_for('feedback.feedback'))
+        response = make_response(render_template('feedback.html', message=message))
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
     
     if code != FEEDBACK_CODE:
         log_failed_attempt(code, ip)
         flash('Ungültiger Code.', 'error')
-        return redirect(url_for('feedback.feedback'))
+        response = make_response(render_template('feedback.html', message=message))
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
     
     # Speichern der Nachricht mit Zeitstempel
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

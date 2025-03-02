@@ -2,6 +2,14 @@
 
 {% block title %}Anonymes Feedback{% endblock %}
 
+{% block extra_headers %}
+<!-- Verhindere Caching -->
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+{% endblock %}
+
 {% block content %}
 <div class="container py-4">
     <div class="row justify-content-center">
@@ -19,11 +27,14 @@
                         {% endif %}
                     {% endwith %}
 
-                    <form method="POST" action="{{ url_for('feedback.submit') }}">
+                    <form method="POST" action="{{ url_for('feedback.submit') }}" autocomplete="off">
                         <div class="mb-3">
                             <label for="message" class="form-label">Ihre Mitteilung</label>
-                            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            <textarea class="form-control" id="message" name="message" rows="5" required 
+                                     autocomplete="off" data-form-type="other">{{ message or '' }}</textarea>
+                            <div class="form-text">Es wird nichts mitgeloggt - auch nicht die IP. Es ist also komplett anonym und nur ich (Janne) kann die Kommentare sehen</div>
                         </div>
+                        
                         <div class="mb-3">
                             <label for="code" class="form-label">Code</label>
                             <input type="password" class="form-control" id="code" name="code" required>
