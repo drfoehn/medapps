@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, send_file, make_response, render_template_string
+from flask import Flask, request, jsonify, render_template, send_file, make_response, render_template_string, redirect, url_for
 import pandas as pd
 import json
 import secrets  # For generating secure filenames
@@ -43,7 +43,7 @@ logger.addHandler(handler)
 
 
 # Register the mass_extract blueprint
-app.register_blueprint(mass_extract, url_prefix='/mass_extract')
+app.register_blueprint(mass_extract, url_prefix='/mass_extract', template_folder='templates')
 app.register_blueprint(feedback_bp, url_prefix='/feedback')
 
 @app.route('/')
@@ -83,8 +83,7 @@ def nephro_calculator():
 
 @app.route('/mass_extracter')
 def mass_extracter():
-    # Placeholder for mass_extracter functionality
-    return render_template('mass_extract/upload.html')
+    return redirect(url_for('mass_extract.upload_file'))
 
 @app.errorhandler(500)
 def internal_error(error):

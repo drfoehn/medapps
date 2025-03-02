@@ -1,7 +1,7 @@
 import os
 import logging
 from logging.handlers import RotatingFileHandler
-from flask import Blueprint, request, render_template, jsonify, url_for, send_from_directory
+from flask import Blueprint, request, render_template, jsonify, url_for, send_from_directory, current_app
 import fitz  # PyMuPDF
 import shutil
 from werkzeug.utils import secure_filename
@@ -9,7 +9,7 @@ import re
 from decimal import Decimal
 from datetime import datetime
 
-mass_extract = Blueprint('mass_extract', __name__, template_folder='templates/mass_extract')
+mass_extract = Blueprint('mass_extract', __name__)
 
 # Configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -204,6 +204,7 @@ def process_pdf(pdf_path):
 
 @mass_extract.route('/', methods=['GET', 'POST'])
 def upload_file():
+    print(f"Current routes: {[rule.endpoint for rule in current_app.url_map.iter_rules()]}")
     if request.method == 'POST':
         if 'file' not in request.files:
             return jsonify({'error': 'No file part'})
@@ -240,7 +241,7 @@ def upload_file():
         
         return jsonify({'error': 'Invalid file type'})
     
-    return render_template('upload.html')
+    return render_template('mass_extract/upload.html')
 
 @mass_extract.route('/archive/<path:filename>')
 def serve_file(filename):
@@ -248,8 +249,30 @@ def serve_file(filename):
 
 @mass_extract.route('/archive')
 def list_archive():
-    files = os.listdir(ARCHIVE_FOLDER)
-    return render_template('archive.html', files=files)
+    files = []
+    for filename in os.listdir(ARCHIVE_FOLDER):
+        file_path = os.path.join(ARCHIVE_FOLDER, filename)
+        file_date = datetime.fromtimestamp(os.path.getmtime(file_path))
+        files.append({
+            'name': filename,
+            'date': file_date.strftime('%d.%m.%Y %H:%M'),
+            'path': filename
+        })
+    # Sortiere nach Datum, neueste zuerst
+    files.sort(key=lambda x: x['date'], reverse=True)
+    return render_template('mass_extract/archive.html', files=files)
+
+@mass_extract.route('/archive/delete/<path:filename>')
+def delete_file(filename):
+    try:
+        file_path = os.path.join(ARCHIVE_FOLDER, filename)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            return jsonify({'success': True})
+        return jsonify({'error': 'File not found'}), 404
+    except Exception as e:
+        logger.error(f'Error deleting file: {str(e)}')
+        return jsonify({'error': 'Could not delete file'}), 500
 
 @mass_extract.errorhandler(Exception)
 def handle_exception(e):

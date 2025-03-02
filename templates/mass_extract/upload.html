@@ -4,8 +4,13 @@
 
 <h2>PDF hochladen</h2>
 
-<div class="mb-3">
-    Hier den Sciex Instrument Tuning Report hochladen
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="mb-3">
+        Hier den Sciex Instrument Tuning Report hochladen
+    </div>
+    <a href="{{ url_for('mass_extract.list_archive') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-archive"></i> Archiv anzeigen
+    </a>
 </div>
 
 <form id="upload-form" enctype="multipart/form-data">

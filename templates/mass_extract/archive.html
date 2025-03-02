@@ -1,14 +1,77 @@
 {% extends "base.html" %}
 
-{% block title %}Archiv{% endblock %}
+{% block title %}Mass Extracter Archiv{% endblock %}
 
 {% block content %}
-    <h2>Archiv</h2>
-    <ul>
-        {% for file in files %}
-            <li><a href="{{ url_for('serve_file', filename=file) }}">{{ file }}</a></li>
-        {% endfor %}
-    </ul>
+<div class="container py-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Archiv der verarbeiteten Dokumente</h4>
+            <a href="{{ url_for('mass_extract.upload_file') }}" class="btn btn-primary btn-sm">
+                <i class="bi bi-upload"></i> Zurück zum Upload
+            </a>
+        </div>
+        <div class="card-body">
+            {% if files %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Datum</th>
+                                <th>Dateiname</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for file in files %}
+                                <tr>
+                                    <td>{{ file.date }}</td>
+                                    <td>{{ file.name }}</td>
+                                    <td>
+                                        <a href="{{ url_for('mass_extract.serve_file', filename=file.path) }}" 
+                                           class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-download"></i> Download
+                                        </a>
+                                        <button onclick="deleteFile('{{ file.path }}')" 
+                                                class="btn btn-outline-danger btn-sm">
+                                            <i class="bi bi-trash"></i> Löschen
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> Keine Dokumente im Archiv vorhanden.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function deleteFile(filename) {
+    if (confirm('Möchten Sie diese Datei wirklich löschen?')) {
+        fetch(`{{ url_for('mass_extract.delete_file', filename='') }}${filename}`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Fehler beim Löschen der Datei');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Fehler beim Löschen der Datei');
+        });
+    }
+}
+</script>
 {% endblock %}
 
 
